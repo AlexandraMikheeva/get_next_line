@@ -6,52 +6,51 @@
 /*   By: olydden <olydden@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 17:52:22 by olydden           #+#    #+#             */
-/*   Updated: 2020/07/30 11:27:16 by olydden          ###   ########.fr       */
+/*   Updated: 2020/07/30 18:42:46 by olydden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int check_storage(char **store, char **line)
+char *check_storage(char *store, char **line)
 {
 	char *endofline;
 
-	if (*store)
+	if (store && ft_strlen(store))
 	{
-		printf("goose");
-		if ((endofline = ft_strchr(*store, '\n')))
+		// printf("goose1\n");
+		if ((endofline = ft_strchr(store, '\n')))
 		{
 			if (*(++endofline) == '\0')
 			{
 				*line = ft_strdup(--endofline);
-				ft_free(*store);
-				return (1);
+				printf("ENDOFLINE: %s%c\n", endofline, '$');
+				printf("STORE0: %s%c\n", store, '$');
+				ft_free(store);
 			}
 			*(--endofline) = '\0';
-			printf("STORE1: %s%c\n", *store, '$');
-			*line = ft_strdup(*store);
+			printf("STORE1: %s%c\n", store, '$');
+			*line = ft_strdup(store);
 			printf("L: %s%c\n", *line, '$');
-			*store += (ft_strlen(*store) + 1);
-			printf("STORE2: %s%c\n", *store, '$');
-			printf("LINE AFTER STORAGE: %s%c\n", *line, '$');
-			return (1);
+			store += (ft_strlen(store) + 1);
+			printf("STORE2: %s%c\n", store, '$');
+			printf("LINE AFTER STORAGE1: %s%c\n", *line, '$');
 		}
 		else
 		{
-			*line = ft_strdup(*store);
-			ft_free(*store);
-			// return (1);
-			printf("LINE AFTER STORAGE: %s%c\n", *line, '$');
+			*line = ft_strdup(store);
+			printf("LL: %s\n", *line);
+			ft_free(store);
 		}
 	}
 	else
 	{
-		printf("goose");
+		store = NULL;
+		// printf("goose2\n");
 		*line = ft_strdup("\0");
-		ft_free(*store);
-		printf("LINE AFTER STORAGE: %s%c\n", *line, '$');
+		printf("LINE AFTER STORAGE3: %s%c\n", *line, '$');
 	}
-	return (0);
+	return (store);
 }
 
 int get_next_line(int fd, char **line)
@@ -63,10 +62,9 @@ int get_next_line(int fd, char **line)
 	
 	// printf("blabla");
 	printf("Storage: %s%c\n", storage, '$');
-	if (check_storage(&storage, line))
-		return (1);
+	check_storage(storage, line);
 	printf("FIRST LINE: %s%c\n", *line, '$');
-	while((read_bytes = read(fd, line_util, BUFFER_SIZE)))
+	while(!storage && (read_bytes = read(fd, line_util, BUFFER_SIZE)))
 	{
 		if (read_bytes < 0)
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: olydden <olydden@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 17:54:08 by olydden           #+#    #+#             */
-/*   Updated: 2020/07/30 11:27:19 by olydden          ###   ########.fr       */
+/*   Updated: 2020/07/30 18:42:41 by olydden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 int 	get_next_line(int fd, char **line);
-int		check_storage(char **store, char **line);
+char	*check_storage(char *store, char **line);
 char	*ft_strdup(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
