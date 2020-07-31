@@ -6,7 +6,7 @@
 /*   By: olydden <olydden@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 18:02:37 by olydden           #+#    #+#             */
-/*   Updated: 2020/07/30 09:51:51 by olydden          ###   ########.fr       */
+/*   Updated: 2020/07/31 12:13:58 by olydden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		newstr[i++] = *s2++;
 	newstr[i] = '\0';
 	return (newstr);
-}
-
-void ft_free(char *s)
-{
-	if (s)
-	{
-		free(s);
-		s = NULL;
-	}
 }
