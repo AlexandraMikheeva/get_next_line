@@ -6,7 +6,7 @@
 /*   By: olydden <olydden@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 18:02:37 by olydden           #+#    #+#             */
-/*   Updated: 2020/07/31 12:13:58 by olydden          ###   ########.fr       */
+/*   Updated: 2020/08/02 03:17:55 by olydden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,17 @@ char	*ft_strdup(const char *s)
 {
 	size_t	len;
 	char	*dup;
+	char	*d;
 
 	len = ft_strlen(s) + 1;
 	dup = (char *)malloc(len);
 	if (dup == NULL)
 		return (NULL);
-	if (!ft_memcpy(dup, s, len))
-	{
-		free(dup);
-		return (NULL);
-	}
-	return (dup);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char	*d;
-	unsigned char	*s;
-
-	if (!n || dest == src)
-		return (dest);
-	d = (unsigned char *)dest;
-	s = (unsigned char *)src;
-	while (n--)
-		*d++ = *s++;
-	return (dest);
+	d = dup;
+	while (*s)
+		*dup++ = *s++;
+	*dup = *s;
+	return (d);
 }
 
 size_t	ft_strlen(const char *s)
@@ -50,11 +36,8 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	if (s)
 	{
-		while (*s != '\0')
-		{
+		while (*s++ != '\0')
 			i++;
-			s++;
-		}
 	}
 	return (i);
 }
@@ -66,13 +49,13 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	ss = (char *)s;
-	while (i <= ft_strlen(s))
+	while (i < ft_strlen(s))
 	{
 		if (c == ss[i])
 			return (&(ss[i]));
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -96,4 +79,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		newstr[i++] = *s2++;
 	newstr[i] = '\0';
 	return (newstr);
+}
+
+void	ft_free(char **s)
+{
+	if (*s)
+	{
+		free(*s);
+		*s = NULL;
+	}
 }
